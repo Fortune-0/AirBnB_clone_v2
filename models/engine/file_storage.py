@@ -48,3 +48,8 @@ class FileStorage:
                         self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
+
+    def delete(self, obj=None):
+        """Delete an obj from __objects if it’s inside"""
+        from models.engine.file_storage import FileStorage
+        from models.state import State
