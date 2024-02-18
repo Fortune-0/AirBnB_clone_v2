@@ -51,5 +51,9 @@ class FileStorage:
 
     def delete(self, obj=None):
         """Delete an obj from __objects if it’s inside"""
-        from models.engine.file_storage import FileStorage
-        from models.state import State
+        if (obj is None):
+            return
+        findObj = obj.to_dict()["__class__"] + "." + obj.id
+        if findObj in self.__objects.key():
+            del self.__objects[findObj]
+        
