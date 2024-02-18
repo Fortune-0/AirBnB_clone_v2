@@ -50,10 +50,7 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        """
-        This method delete obj from __objects if it is inside.
-        Do nothing if no argument passed
-        """
+        """This method delete obj from __objects if it is inside"""
         if obj is None:
             return
         findObj = obj.to_dict["__class__"] + "." + obj.id
