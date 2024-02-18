@@ -9,7 +9,7 @@ from sqlalchemy.sql.schema import Table
 from sqlalchemy.orm import relationship
 
 
-class Place(BaseModel):
+class Place(BaseModel, Base):
     """A place to stay"""
     __tablename__ = "places"
     if storage_type == "db":
