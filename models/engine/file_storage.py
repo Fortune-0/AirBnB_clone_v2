@@ -16,7 +16,7 @@ class FileStorage:
         result = {}
         for ele in self.__objects.keys():
             if findCls == ele.split(".")[0]:
-                result[key] = self.__objects[key]
+                result[ele] = self.__objects[ele]
         return result
 
     def new(self, obj):
