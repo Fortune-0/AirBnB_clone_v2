@@ -12,9 +12,9 @@ from sqlalchemy.orm import relationship
 class Place(BaseModel):
     """A place to stay"""
     __tablename__ = "places"
-    if storage_type = "db
-        city_id = Column(String(60), nullable=False, ForeignKey("cities.id"))
-        user_id = Column(String(60), nullable=False, ForeignKey("users.id"))
+    if storage_type == "db":
+        city_id = relationship(String(60), nullable=False, ForeignKey("cities.id"))
+        user_id = relationship(String(60), nullable=False, ForeignKey("users.id"))
         name = Column(String(128), nullable=Fales)
         description = Column(String(1024), nullable=False)
         number_rooms = Column(Integer, nullable=False, default=0)
