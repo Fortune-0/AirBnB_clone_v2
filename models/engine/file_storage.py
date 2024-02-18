@@ -63,4 +63,3 @@ class FileStorage:
         findObj = obj.to_dict()["__class__"] + "." + obj.id
         if findObj in self.__objects.key():
             del self.__objects[findObj]
-
