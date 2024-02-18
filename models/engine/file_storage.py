@@ -13,10 +13,10 @@ class FileStorage:
         if cls is None:
             return self.__objects
         findCls = cls.__name__
-        result = []
+        result = {}
         for ele in self.__objects.keys():
             if findCls == ele.split(".")[0]:
-                result.append(self.__objects[ele])
+                result[ele] = self.__objects[ele]
         return result
 
     def new(self, obj):
