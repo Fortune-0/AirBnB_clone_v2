@@ -22,3 +22,19 @@ class Place(BaseModel, Base):
     if environ["HBNB_TYPE_STORAGE"] == "db":
         reviews = relationship("Review", backref="place",
                                cascade="all, delete, delete-orphan")
+    else:
+        @property
+        def reviews(self):
+            """
+            Returns a list of Review instances with place_id that are
+            equal to the current Place.id
+            """
+            from model import storage
+            # list of all reviews
+            compRevi = storage.all(Review)
+            # wanted list of reviews 
+            reviList = []
+            for elem in compRevi.values():
+                if elem.place_id == self.id:
+                    reviList.append(elem)
+            return reviList
