@@ -15,7 +15,7 @@ class FileStorage:
         findCls = cls.__name__
         result = {}
         for elem in self.__objects.keys():
-            if key.split('.')[0] == cls_name:
+            if key.split(".")[0] == cls_name:
                 result[elem] = self.__objects[elem]
         return result
 
