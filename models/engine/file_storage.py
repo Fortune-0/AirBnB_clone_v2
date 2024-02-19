@@ -60,6 +60,6 @@ class FileStorage:
         """This method delete obj from __objects if it is inside"""
         if obj is None:
             return
-        findObj = obj.to_dict["__class__"] + "." + obj.id
+        findObj = obj.to_dict()["__class__"] + "." + obj.id
         if findObj in self.__objects.keys():
             del self.__objects[findObj]
