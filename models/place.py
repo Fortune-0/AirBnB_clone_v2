@@ -38,9 +38,8 @@ class Place(BaseModel, Base):
             Returns a list of Review instances with place_id that are
             equal to the current Place.id
             """
-            from models import storage
             # list of all reviews
-            compRevi = storage.all(Review)
+            compRevi = models.storage.all(Review)
             # wanted list of reviews
             reviList = []
             for elem in compRevi.values():
@@ -54,9 +53,8 @@ class Place(BaseModel, Base):
             Returns the list of Amenity instances with amenity_ids that are
             equal to Amenity.id
             """
-            from models import storage
             # List of all amenities
-            compAmen = storage.all(Amenity)
+            compAmen = models.storage.all(Amenity)
             # list of wanted amenities
             amenList = []
             for key, value in compAmen.items():
