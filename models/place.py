@@ -65,7 +65,8 @@ class Place(BaseModel, Base):
         @amenities.setter
         def amenities(self, obj=None):
             """
-            Handles append method for adding an Amenity.id to the attribute amenity_ids
+            Handles append method for adding an Amenity.id to the attribute
+            with the same amenity_ids
             """
             if isinstance(obj, Amenity):
                 if obj.id not in self.amenity_ids:
