@@ -23,26 +23,26 @@ class DBStorage:
 
     def __init__(self):
         """ initiate the class to a desired value"""
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}:3306/{}'
-                                      .format(getenv('HBNB_MYSQL_USER'),
-                                              getenv('HBNB_MYSQL_PWD'),
-                                              getenv('HBNB_MYSQL_HOST'),
-                                              getenv('HBNB_MYSQL_DB')),
+        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}:3306/{}"
+                                      .format(getenv("HBNB_MYSQL_USER"),
+                                              getenv("HBNB_MYSQL_PWD"),
+                                              getenv("HBNB_MYSQL_HOST"),
+                                              getenv("HBNB_MYSQL_DB")),
                                       pool_pre_ping=True)
         if getenv("HBNB_ENV") == "test":
-            Base.metadata.drop_all(self.__engine)
+                Base.metadata.drop_all(self.__engine)
     
     def all(self, cls=None):
         """Query on the current database session (self.__session)"""
         objDic = {}
         if cls:
             for row in self.__session.query(cls).all():
-                objDic.update({'{}.{}'.
+                objDic.update({"{}.{}".
                                 format(type(cls).__name__, row.id,): row})
         else:
             for key, val in all_classes.items():
                 for row in self.__session.query(val):
-                    objDic.update({'{}.{}'.
+                    objDic.update({"{}.{}".
                                     format(type(row).__name__, row.id,): row})
         return objDic
     

@@ -10,13 +10,10 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 class BaseModel:
-    """BaseModel class for creating and managing instances"""
-    TIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
-    
-    id = Column(String(60), primary_key=True, nullable=False, unique=True)
+    """BaseModel class for creating and managing instances"""    
+    id = Column(String(60), primary_key=True, nullable=False)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
-    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow(), 
-                        onupdate=datetime.utcnow())
+    updated_at = Column(DateTime, nullable=False, default=created_at)
 
     def __init__(self, *args, **kwargs):
         """Initialize a new instance of BaseModel.
@@ -30,22 +27,17 @@ class BaseModel:
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                 if key != "__class__":
                     setattr(self, key, value)
-            if "id" not in kwargs:
-                self.id = str(uuid.uuid4())
-            if "created_at" not in kwargs:
-                self.created_at = datetime.now()
-            if "updated_at" not in kwargs:
-                self.updated_at = datetime.now()
+            if 'created_at' not in kwargs:
+                self.created_at = self.updated_at = datetime.now()
         else:
             self.id = str(uuid.uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            # models.storage.new(self)
+            self.created_at = self.updated_at = datetime.now()
 
-    def __str__(self) -> str:
+    def __str__(self):
         """Return a string representation of the instance."""
-        class_name = self.__class__.__name__
-        return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
+        clasName = "[{}] ({}) {}".format(type(self).__name__,
+                                           self.id, self.__dict__)
+        return clasName
 
     def save(self):
         """Update the updated_at attribute and save the instance."""
