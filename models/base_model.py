@@ -8,6 +8,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
+
 class BaseModel:
     """BaseModel class for creating and managing instances"""
     id = Column(String(60), primary_key=True, nullable=False)
@@ -47,17 +48,17 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
-            """creates dictionary of the class  and returns
-            Return:
-                returns a dictionary of all the key values in __dict__
-            """
-            dicRep = dict(self.__dict__)
-            if '_sa_instance_state' in dicRep:
-                del dicRep['_sa_instance_state']
-            dicRep["__class__"] = str(type(self).__name__)
-            dicRep["created_at"] = self.created_at.isoformat()
-            dicRep["updated_at"] = self.updated_at.isoformat()
-            return dicRep
+        """creates dictionary of the class  and returns
+        Return:
+        returns a dictionary of all the key values in __dict__
+        """
+        dicRep = dict(self.__dict__)
+        if '_sa_instance_state' in dicRep:
+            del dicRep['_sa_instance_state']
+        dicRep["__class__"] = str(type(self).__name__)
+        dicRep["created_at"] = self.created_at.isoformat()
+        dicRep["updated_at"] = self.updated_at.isoformat()
+        return dicRep
 
     def  delete(self):
         """Remove the current instance from the storage (models.storage)."""

@@ -6,6 +6,6 @@ from sqlalchemy.orm import relationship
 
 
 class Amenity(BaseModel, Base):
-    """A table that contains the useful stuff need for more comfortable stays"""
+    """A table that contains useful stuff need for more comfortable stays"""
     __tablename__ = "amenities"
     name = Column(String(128), nullable=False)
