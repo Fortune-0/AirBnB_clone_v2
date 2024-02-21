@@ -1,65 +1,67 @@
 #!/usr/bin/python3
 """This module defines a class to manage file storage for hbnb clone"""
-import json
+from models.base_model import BaseModel, Base
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session
+from sqlalchemy.orm.session import sessionmaker, Session
+from os import getenv
+
+classes = {User: "user", State: "state", City: "city", Amenity: "amenity",
+           Place: "place", Review: "review"}
 
 
-class FileStorage:
-    """This class manages storage of hbnb models in JSON format"""
-    __file_path = 'file.json'
-    __objects = {}
+class DBStorage:
+    """This class manages storage of hbnb models in MySql format"""
+    __engine = None
+    __session = None
 
+    def __init__(self):
+        """ initiate the class to a desired value"""
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}:3306/{}'
+                                      .format(getenv('HBNB_MYSQL_USER'),
+                                              getenv('HBNB_MYSQL_PWD'),
+                                              getenv('HBNB_MYSQL_HOST'),
+                                              getenv('HBNB_MYSQL_DB')),
+                                      pool_pre_ping=True)
+        if getenv("HBNB_ENV") == "test":
+            Base.metadata.drop_all(self.__engine)
+    
     def all(self, cls=None):
-        """Returns a dictionary of models currently in storage"""
+        """Query on the current database session (self.__session)"""
         if cls is None:
-            return FileStorage.__objects
-        findCls = cls.__name__
-        result = {}
-        for elem in self.__objects.keys():
-            if key.split(".")[0] == cls_name:
-                result[elem] = self.__objects[elem]
-        return result
-
+            for key, value in classes.items():
+                for line in self.__session.query(val):
+                    obj_dict.update({'{}.{}'.
+                                    format(type(row).__name__, row.id,): line})
+        else:
+            for line in self.__session.query(cls).all():
+                obj_dict.update({'{}.{}'.
+                                format(type(cls).__name__, row.id,): line})
+    
     def new(self, obj):
-        """Adds new object to storage dictionary"""
-        self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
-
+        """Add the object to the current database session"""
+        self.__session.add(obj)
+    
     def save(self):
-        """Saves storage dictionary to file"""
-        with open(FileStorage.__file_path, 'w') as f:
-            temp = {}
-            temp.update(FileStorage.__objects)
-            for key, val in temp.items():
-                temp[key] = val.to_dict()
-            json.dump(temp, f)
-
-    def reload(self):
-        """Loads storage dictionary from file"""
-        from models.base_model import BaseModel
-        from models.user import User
-        from models.place import Place
-        from models.state import State
-        from models.city import City
-        from models.amenity import Amenity
-        from models.review import Review
-
-        classes = {
-                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
-                    'State': State, 'City': City, 'Amenity': Amenity,
-                    'Review': Review
-                  }
-        try:
-            temp = {}
-            with open(FileStorage.__file_path, 'r') as f:
-                temp = json.load(f)
-                for key, val in temp.items():
-                    self.all()[key] = classes[val['__class__']](**val)
-        except FileNotFoundError:
-            pass
-
+        """Commit all changes of the current database session"""
+        self.__session.commit()
+    
     def delete(self, obj=None):
-        """This method delete obj from __objects if it is inside"""
-        if obj is None:
-            return
-        findObj = obj.to_dict()["__class__"] + "." + obj.id
-        if findObj in self.__objects.keys():
-            del self.__objects[findObj]
+        """Delete from the current database session obj if not None"""
+        if obj is not None:
+            theObj = classes[type(obj).__name__]
+            self.__session.query(theObj).\
+                filter(theObj.id == obj.id).delete()
+    
+    def reload(self):
+        """Create all tables in the database using feature of SQLAlchemy"""
+        Base.metadata.create_all(self.__engine)
+        sess = sessionmaker(bind=self.__engine,
+                               expire_on_commit=False)
+        self.__session = scoped_session(sess)
