@@ -1,10 +1,9 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
 from models import BaseModel, Base
-from sqlalchemy import Column, Integer, String
-from sqlalchemy import ForeignKey
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
-from models.place import Place
+from os import environ
 
 class State(BaseModel, Base):
     """ State class """

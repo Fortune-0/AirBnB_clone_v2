@@ -10,7 +10,7 @@ from models.state import State
 from models.user import User
 
 
-if environ['HBNB_TYPE_STORAGE'] == 'db':
+if environ["HBNB_TYPE_STORAGE"] == "db":
     from models.engine.db_storage import DBStorage
     storage = DBStorage()
     storage.reload()
