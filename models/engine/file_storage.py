@@ -67,4 +67,4 @@ class FileStorage:
         if obj is None:
             return
         findObj = "{}.{}".format(type(obj).__name__, obj.id)
-            del self.__objects[findObj]
+        del self.__objects[findObj]
