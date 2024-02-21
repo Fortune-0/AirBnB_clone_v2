@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship
 from os import environ
 
 class State(BaseModel, Base):
-    """ State class """
+    """State class"""
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
     if environ["HBNB_TYPE_STORAGE"] == "db":
@@ -21,7 +21,7 @@ class State(BaseModel, Base):
             compCity = storage.all(City)
             # list of wanted sities
             wantCity = []
-            for elem in cities_dict.values():
+            for elem in compCity.values():
                 if elem.state_id == self.id:
                     wantCity.append(city)
             return wantCity
