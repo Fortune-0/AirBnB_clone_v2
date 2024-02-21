@@ -22,7 +22,7 @@ class DBStorage:
     __session = None
 
     def __init__(self):
-        """ initiate the class to a desired value"""
+        """ initiate the class to a desired valueue"""
         self.__engine = create_engine("mysql+mysqldb://{}:{}@{}:3306/{}"
                                       .format(getenv("HBNB_MYSQL_USER"),
                                               getenv("HBNB_MYSQL_PWD"),
@@ -30,8 +30,8 @@ class DBStorage:
                                               getenv("HBNB_MYSQL_DB")),
                                       pool_pre_ping=True)
         if getenv("HBNB_ENV") == "test":
-                Base.metadata.drop_all(self.__engine)
-    
+            Base.metadata.drop_all(self.__engine)
+
     def all(self, cls=None):
         """Query on the current database session (self.__session)"""
         objDic = {}
@@ -40,30 +40,28 @@ class DBStorage:
                 objDic.update({"{}.{}".
                                 format(type(cls).__name__, row.id,): row})
         else:
-            for key, val in all_classes.items():
-                for row in self.__session.query(val):
+            for key, value in all_classes.items():
+                for row in self.__session.query(value):
                     objDic.update({"{}.{}".
                                     format(type(row).__name__, row.id,): row})
         return objDic
-    
+
     def new(self, obj):
         """Add the object to the current database session"""
         self.__session.add(obj)
-    
+
     def save(self):
         """Commit all changes of the current database session"""
         self.__session.commit()
-    
+
     def delete(self, obj=None):
         """Delete from the current database session obj if not None"""
         if obj is not None:
             theObj = classes[type(obj).__name__]
-            self.__session.query(theObj).\
-                filter(theObj.id == obj.id).delete()
-    
+            self.__session.query(theObj).filter(theObj.id == obj.id).delete()
+
     def reload(self):
         """Create all tables in the database using feature of SQLAlchemy"""
         Base.metadata.create_all(self.__engine)
-        sess = sessionmaker(bind=self.__engine,
-                               expire_on_commit=False)
+        sess = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(sess)

@@ -14,7 +14,7 @@ class State(BaseModel, Base):
     else:
         @property
         def cities(self):
-            """Return a list of cities with state_id equal to self.id"""
+            """Return any city with state_id equal to self.id"""
             from models import storage
             from models.city import City
             # list of all cities
