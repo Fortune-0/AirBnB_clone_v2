@@ -34,15 +34,17 @@ class DBStorage:
     
     def all(self, cls=None):
         """Query on the current database session (self.__session)"""
-        if cls is None:
-            for key, value in classes.items():
-                for line in self.__session.query(val):
-                    obj_dict.update({'{}.{}'.
-                                    format(type(row).__name__, row.id,): line})
+        objDic = {}
+        if cls:
+            for row in self.__session.query(cls).all():
+                objDic.update({'{}.{}'.
+                                format(type(cls).__name__, row.id,): row})
         else:
-            for line in self.__session.query(cls).all():
-                obj_dict.update({'{}.{}'.
-                                format(type(cls).__name__, row.id,): line})
+            for key, val in all_classes.items():
+                for row in self.__session.query(val):
+                    objDic.update({'{}.{}'.
+                                    format(type(row).__name__, row.id,): row})
+        return objDic
     
     def new(self, obj):
         """Add the object to the current database session"""
