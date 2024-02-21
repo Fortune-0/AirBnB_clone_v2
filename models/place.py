@@ -6,11 +6,13 @@ from sqlalchemy.orm import relationship
 from os import environ
 
 
-place_amenity = Table("place_amenity", Base.metadata,
-                      Column("place_id", String(60), ForeignKey("places.id"),
+place_amenity = Table('place_amenity', Base.metadata,
+                      Column('place_id', String(60),
+                             ForeignKey('places.id'),
                              primary_key=True, nullable=False),
-                      Column("amenity_id", String(60), primary_key=True,
-                             ForeignKey('amenities.id'), nullable=False))
+                      Column('amenity_id', String(60),
+                             ForeignKey('amenities.id'),
+                             primary_key=True, nullable=False))
 
 
 class Place(BaseModel, Base):
