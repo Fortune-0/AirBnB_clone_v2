@@ -61,7 +61,7 @@ class Place(BaseModel, Base):
             # list of wanted amenities
             amenList = []
             for key, value in compAmen.items():
-                if key in self.amenity_ids:
+                if key in self.amentiy_ids:
                     amenList.append(value)
             return amenList
 
