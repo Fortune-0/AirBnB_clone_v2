@@ -134,6 +134,13 @@ class HBNBCommand(cmd.Cmd):
                     value = value.replace('_', ' ')
                     
                     # Check if value is a float and convert
+                elif '.' in value:
+                    try:
+                        value = float(value)
+                    except:
+                        ValueError
+                            
+                        
                     
                     setattr(new_instance, key, value)
     
