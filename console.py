@@ -132,6 +132,9 @@ class HBNBCommand(cmd.Cmd):
                     (value[1:-1]).replace('\\"','"')
                     # Replace underscores with spaces
                     value = value.replace('_', ' ')
+                    
+                    # Check if value is a float and convert
+                    
                     setattr(new_instance, key, value)
     
         # storage.save()
