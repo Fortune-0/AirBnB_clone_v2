@@ -137,10 +137,9 @@ class HBNBCommand(cmd.Cmd):
                 elif '.' in value:
                     try:
                         value = float(value)
-                    except:
-                        ValueError
-                            
-                        
+                    except ValueError:
+                        print("**float is not accepted**")
+                        return
                     
                     setattr(new_instance, key, value)
     
