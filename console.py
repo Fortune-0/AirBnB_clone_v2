@@ -129,9 +129,11 @@ class HBNBCommand(cmd.Cmd):
                 setattr(new_instance, key, value)
                 # Check if value is a string and remove quotes
                 if value[0] == '"' and value[-1] == '"':
-                    setattr(new_instance, key, value[1:-1]).replace('\\"','"')
-        
-            
+                    (value[1:-1]).replace('\\"','"')
+                    # Replace underscores with spaces
+                    value = value.replace('_', ' ')
+                    setattr(new_instance, key, value)
+    
         # storage.save()
         print(new_instance.id)
         storage.save()
