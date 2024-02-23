@@ -139,7 +139,15 @@ class HBNBCommand(cmd.Cmd):
                         value = float(value)
                     except ValueError:
                         print("**float is not accepted**")
-                        return
+                        continue
+                    
+                    # check if value is an integer
+                else:
+                    try:
+                        value = int(value)
+                    except ValueError:
+                        print("** value is not a valid integer **")
+                        continue
   
                     setattr(new_instance, key, value)
     
