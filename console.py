@@ -112,61 +112,40 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """ Overrides the emptyline method of CMD """
         pass
-    
+
     def do_create(self, args):
         """ Create an object of any class"""
-        try:
-            if not args:
-                raise SyntaxError()
-            arg_list = args.split(" ")
-            kw = {}
-            for arg in arg_list[1:]:
-                arg_splited = arg.split("=")
-                arg_splited[1] = eval(arg_splited[1])
-                if type(arg_splited[1]) is str:
-                    arg_splited[1] = arg_splited[1].replace("_", " ").replace('"', '\\"')
-                kw[arg_splited[0]] = arg_splited[1]
-        except SyntaxError:
+        if not args:
             print("** class name missing **")
-        except NameError:
+            return
+        elif args not in HBNBCommand.classes:
             print("** class doesn't exist **")
-        new_instance = HBNBCommand.classes[arg_list[0]](**kw)
-        new_instance.save()
-        print(new_instance.id)
-
-    # def do_create(self, args):
-    #     """ Create an object of any class"""
-    #     if not args:
-    #         print("** class name missing **")
-    #         return
-    #     elif args not in HBNBCommand.classes:
-    #         print("** class doesn't exist **")
-    #         return
-    #     new_instance = HBNBCommand.classes[args]()
+            return
+        new_instance = HBNBCommand.classes[args]()
         
-    #     if len(args) > 1:
-    #         for param in args[1:]:
-    #             key, value = param.split("=")
-    #             setattr(new_instance, key, value)
-    #             # Check if value is a string and remove quotes
-    #             if value[0] == '"' and value[-1] == '"':
-    #                 (value[1:-1]).replace('\\"','"')
-    #                 # Replace underscores with spaces
-    #                 value = value.replace('_', ' ')
+        if len(args) > 1:
+            for param in args[1:]:
+                key, value = param.split("=")
+                setattr(new_instance, key, value)
+                # Check if value is a string and remove quotes
+                if value[0] == '"' and value[-1] == '"':
+                    (value[1:-1]).replace('\\"','"')
+                    # Replace underscores with spaces
+                    value = value.replace('_', ' ')
                     
-    #                 # Check if value is a float
-    #             elif '.' in value:
-    #                 try:
-    #                     value = float(value)
-    #                 except ValueError:
-    #                     print("**float is not accepted**")
-    #                     return
+                    # Check if value is a float
+                elif '.' in value:
+                    try:
+                        value = float(value)
+                    except ValueError:
+                        print("**float is not accepted**")
+                        return
   
-    #                 setattr(new_instance, key, value)
+                    setattr(new_instance, key, value)
     
-    #     # storage.save()
-    #     print(new_instance.id)
-    #     storage.save()
+        # storage.save()
+        print(new_instance.id)
+        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
