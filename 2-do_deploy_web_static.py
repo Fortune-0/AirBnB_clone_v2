@@ -32,5 +32,5 @@ def do_deploy(archive_path):
         # new symbolic link
         run("ln -s {} /data/web_static/current".format(extrPath))
         return True
-    except:
+    except Exception:
         return False
