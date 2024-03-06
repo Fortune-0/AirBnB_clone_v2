@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 apt-get install python3.8
+apt-get install python3-pip
 pip3 uninstall Fabric
 sudo apt-get install libffi-dev
 sudo apt-get install libssl-dev
