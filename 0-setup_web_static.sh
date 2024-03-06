@@ -8,5 +8,5 @@ chown ubuntu:ubuntu /data/
 file='/etc/nginx/sites-available/default'
 line=56
 text='}\n\tlocation hbnb_static {\n\t\talias /data/web_static/current/;\n\t}'
-sed -i 
+sed -i "${line}s~.*~${text}~" $file
 service nginx restart
