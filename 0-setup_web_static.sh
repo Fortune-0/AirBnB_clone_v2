@@ -14,3 +14,4 @@ line=56
 text='\t}\n\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}'
 sed -i "${line}s~.*~${text}~" $file
 service nginx restart
+exit 0
