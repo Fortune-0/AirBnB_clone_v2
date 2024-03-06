@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """2. Deploy archive!"""
 from fabric.api import *
-from datetime import datetime
 from os import path
 
 
@@ -9,9 +8,10 @@ def do_deploy(archive_path):
     """Distributes an archive to your web servers"""
     env.hosts = ["18.204.9.96", "54.144.144.63"]
     env.user = "ubuntu"
-    if os.path.exists(archive_path) is False:
-        return False
     try:
+        if os.path.exists(archive_path) is False:
+            return False
+        
         # placing the archive
         put(archive_path, "/tmp/")
 
