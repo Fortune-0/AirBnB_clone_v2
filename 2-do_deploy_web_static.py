@@ -1,21 +1,37 @@
 #!/usr/bin/python3
-"""1. Compress before sending"""
-from fabric.api import local
+"""2. Deploy archive!"""
+from fabric.api import *
 from datetime import datetime
+from os import path
 
-def do_pack():
-    """Generates a .tgz archive from the contents of the web_static"""
-    # getting time and formating it
-    time = datetime.now().strftime("%Y%m%d%H%M%S")
 
-    # naming the file
-    name = "web_static_{}.tgz".format(time)
+def do_deploy(archive_path):
+    """Distributes an archive to your web servers"""
+    env.hosts = ["18.204.9.96", "54.144.144.63"]
+    env.user = "ubuntu"
+    if os.path.exists(archive_path) is False:
+        return False
+    try:
+        # placing the archive
+        put(archive_path, "/tmp/")
 
-    # command
-    comm = "tar -cvzf versions/{} web_static/".format(name)
+        # getting name of archive from archive_path
+        temp = str(archive_path).split("/")[-1]
+        name = temp.split(".")[0]
 
-    # execution
-    local('mkdir -p versions/')
-    path = local(comm)
-    if path.succeeded:
-        return "versions/{}".format(name)
+        # uncompressing...
+        # extraction path
+        extrPath = "/data/web_static/releases/{}/".format(name)
+        run("mkdir -p {}".format(extrPath))
+        run("tar -xzf /tmp/{} -C {}".format(temp, extrPath))
+        # removing extracted
+        run("rm /tmp/{}".format(temp))
+
+        # deletes the symbolic
+        run("rm -rf /data/web_static/current")
+
+        # new symbolic link
+        run("ln -s {} /data/web_static/current".format(extrPath))
+        return True
+    except:
+        return False
