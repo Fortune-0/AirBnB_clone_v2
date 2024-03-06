@@ -7,6 +7,6 @@ ln -sf /data/web_static/releases/test/ /data/web_static/current
 chown ubuntu:ubuntu /data/
 file='/etc/nginx/sites-available/default'
 line=56
-text='\n\t}\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}'
+text='\t}\n\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}'
 sed -i "${line}s~.*~${text}~" $file
 service nginx restart
