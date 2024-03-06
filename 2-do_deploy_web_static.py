@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """2. Deploy archive!"""
 from fabric.api import *
-from os import path
+import os
 
 
 
@@ -9,7 +9,6 @@ def do_deploy(archive_path):
     """Distributes an archive to your web servers"""
     env.hosts = ["18.204.9.96", "54.144.144.63"]
     env.user = "ubuntu"
-    env.key_filename = '~/.ssh/id_rsa'
     if not os.path.exists(archive_path):
         return False
     try:
