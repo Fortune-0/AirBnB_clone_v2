@@ -23,6 +23,7 @@ def do_deploy(archive_path):
         extrPath = "/data/web_static/releases/{}/".format(name)
         run("mkdir -p {}".format(extrPath))
         run("tar -xzf /tmp/{} -C {}".format(temp, extrPath))
+        run("mv {}/web_static/* {}".format(extrPath, extrPath))
         # removing extracted
         run("rm /tmp/{}".format(temp))
 
