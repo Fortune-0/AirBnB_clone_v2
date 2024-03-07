@@ -24,17 +24,17 @@ def do_deploy(archive_path):
         # uncompressing...
         # extraction path
         extrPath = "/data/web_static/releases/{}/".format(name)
-        run("sudo mkdir -p {}".format(extrPath))
-        run("sudo tar -xzf /tmp/{} -C {}".format(temp, extrPath))
-        run("sudo mv {}/web_static/* {}".format(extrPath, extrPath))
+        run("mkdir -p {}".format(extrPath))
+        run("tar -xzf /tmp/{} -C {}".format(temp, extrPath))
+        run("mv {}/web_static/* {}".format(extrPath, extrPath))
         # removing extracted
-        run("sudo rm /tmp/{}".format(temp))
+        run("rm /tmp/{}".format(temp))
 
         # deletes the symbolic
-        run("sudo rm -rf /data/web_static/current")
+        run("rm -rf /data/web_static/current")
 
         # new symbolic link
-        run("sudo ln -s {} /data/web_static/current".format(extrPath))
+        run("ln -s {} /data/web_static/current".format(extrPath))
         return True
     except Exception:
         return False
