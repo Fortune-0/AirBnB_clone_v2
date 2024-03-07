@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """2. Deploy archive!"""
-from fabric.api import *
+from fabric.api import put, run, env, cd
 from datetime import datetime
 import os
 
