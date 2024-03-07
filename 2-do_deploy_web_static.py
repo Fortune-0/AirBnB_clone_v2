@@ -17,7 +17,6 @@ def do_deploy(archive_path):
         # # getting name of archive from archive_path
         temp = str(archive_path).split("/")[-1]
         name = temp.split(".")[0]
-        return name, temp
 
         # uncompressing...
         # extraction path
