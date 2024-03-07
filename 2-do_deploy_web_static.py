@@ -18,8 +18,10 @@ def do_deploy(archive_path):
         put(archive_path, "/tmp/")
 
         # getting name of archive from archive_path
-        temp = str(archive_path).split("/")[-1]
-        name = temp.split(".")[0]
+        temp = str(archive_path).split("/")
+        temp = temp[-1]
+        name = temp.split(".")
+        name = name[0]
 
         # uncompressing...
         # extraction path
