@@ -5,7 +5,7 @@ from datetime import datetime
 import os
 
 
-env.hosts = ["18.204.9.96", "54.144.144.63"]
+env.hosts = ["54.157.128.136", "34.227.91.77"]
 env.user = "ubuntu"
 
 
