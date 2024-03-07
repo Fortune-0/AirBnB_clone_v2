@@ -19,7 +19,8 @@ def do_deploy(archive_path):
         name = temp.split(".")[0]
         
         # placing the archive
-        put(archive_path, "/tmp/")
+        with cd("/tmp"):
+            put(archive_path, '.', use_sudo=True)
 
         # uncompressing...
         # extraction path
