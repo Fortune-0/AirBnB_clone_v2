@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """2. Deploy archive!"""
-from fabric.api import put, run, env, cd
+from fabric.api import put, run, env
 from datetime import datetime
 import os
 
@@ -19,8 +19,7 @@ def do_deploy(archive_path):
         name = temp.split(".")[0]
         
         # placing the archive
-        with cd("/tmp"):
-            put(archive_path, '.', use_sudo=True)
+        put(archive_path, "/tmp/")
 
         # uncompressing...
         # extraction path
