@@ -14,14 +14,12 @@ def do_deploy(archive_path):
     if not os.path.exists(archive_path):
         return False
     try:
+        # getting name of archive from archive_path
+        temp = str(archive_path).split("/")[-1]
+        name = temp.split(".")[0]
+        
         # placing the archive
         put(archive_path, "/tmp/")
-
-        # getting name of archive from archive_path
-        temp = str(archive_path).split("/")
-        temp = temp[-1]
-        name = temp.split(".")
-        name = name[0]
 
         # uncompressing...
         # extraction path
