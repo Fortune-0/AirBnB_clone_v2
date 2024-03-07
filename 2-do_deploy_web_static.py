@@ -12,7 +12,7 @@ def do_deploy(archive_path):
         return False
     try:
         # placing the archive
-        # put(archive_path, "/tmp/")
+        put(archive_path, "/tmp/")
 
         # # getting name of archive from archive_path
         temp = str(archive_path).split("/")[-1]
