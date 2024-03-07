@@ -9,9 +9,7 @@ env.user = "ubuntu"
 
 
 def do_deploy(archive_path):
-    """Distributes an archive to your web servers"""
-    env.hosts = ["18.204.9.96", "54.144.144.63"]
-    env.user = "ubuntu"
+    """Distributes an archive to the web servers""" 
     if not os.path.exists(archive_path):
         return False
     try:
