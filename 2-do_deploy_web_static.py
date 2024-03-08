@@ -19,9 +19,9 @@ def do_deploy(archive_path):
         name = temp.split(".")[0]
 
         # placing the archive
-        sub.run(["scp", "{}".format(archive_path),
+        # sub.run(["scp", "{}".format(archive_path),
                  "{}@{}:/tmp/".format(env.user, env.host)])
-        # put(archive_path, "/tmp/")
+        put(archive_path, "/tmp/")
 
         # uncompressing...
         # extraction path
