@@ -3,11 +3,10 @@
 from fabric.api import put, run, env
 from datetime import datetime
 import os
-
+import subprocess as sub
 
 env.hosts = ["54.226.42.171", "54.236.16.117"]
 env.user = "ubuntu"
-env.key_filename = '~/.ssh/id_rsa'
 
 
 def do_deploy(archive_path):
@@ -20,7 +19,9 @@ def do_deploy(archive_path):
         name = temp.split(".")[0]
 
         # placing the archive
-        put(archive_path, "/tmp/")
+        sub.run(["scp", "{}".format(archive_path),
+                 "{}@{}:~/tmp/".format(env.user, env.host)])
+        # put(archive_path, "/tmp/")
 
         # uncompressing...
         # extraction path
