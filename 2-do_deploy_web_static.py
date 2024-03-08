@@ -5,13 +5,14 @@ from datetime import datetime
 import os
 
 
-env.hosts = ["54.157.128.136", "34.227.91.77"]
-env.user = "ubuntu"
-env.key_filename = '~/.ssh/school'
+
 
 
 def do_deploy(archive_path):
     """Distributes an archive to the web servers"""
+    env.hosts = ["54.226.42.171", "54.236.16.117"]
+    env.user = "ubuntu"
+    env.key_filename = '~/.ssh/school'
     if not os.path.exists(archive_path):
         return False
     try:
