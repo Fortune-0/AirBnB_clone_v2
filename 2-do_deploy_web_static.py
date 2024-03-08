@@ -11,14 +11,14 @@ env.key_filename = '~/.ssh/school'
 
 
 def do_deploy(archive_path):
-    """Distributes an archive to the web servers""" 
+    """Distributes an archive to the web servers"""
     if not os.path.exists(archive_path):
         return False
     try:
         # getting name of archive from archive_path
         temp = str(archive_path).split("/")[-1]
         name = temp.split(".")[0]
-        
+
         # placing the archive
         put(archive_path, "/tmp/")
 
