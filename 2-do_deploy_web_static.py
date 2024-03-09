@@ -20,7 +20,7 @@ def do_deploy(archive_path):
 
         # placing the archive
         sub.run(["scp", "{}".format(archive_path),
-                 "{}@{}:/tmp/".format(env.user, env.host)], input="yes")
+                 "{}@{}:/tmp/".format(env.user, env.host)], stdin="yes")
         # put(archive_path, "/tmp/")
 
         # uncompressing...
