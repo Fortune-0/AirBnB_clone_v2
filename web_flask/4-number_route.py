@@ -31,10 +31,10 @@ def pythonText(text):
     """display Python followed by the value of the text variable"""
     return "Python {}".format(text.replace("_", " "))
 
-@app.route("/number/<num>", strict_slashes=False)
+@app.route("/number/<int:num>", strict_slashes=False)
 def  number(num):
     """Display only an integer"""
-    return ("{} " .format(int(num)) + "is a number")
+    return ("{} is a number" .format(int(num)))
 
 
 if __name__ == "__main__":
