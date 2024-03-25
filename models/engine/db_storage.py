@@ -65,3 +65,8 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         sess = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(sess)
+        
+    def close(self):
+        """_summary_
+        """
+        self.remove()

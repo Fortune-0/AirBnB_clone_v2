@@ -76,3 +76,7 @@ class FileStorage:
             return
         findObj = "{}.{}".format(type(obj).__name__, obj.id)
         del self.__objects[findObj]
+        
+    def close(self):
+        """Closes the current session and saves all changes to disk."""
+        self.reload ()
