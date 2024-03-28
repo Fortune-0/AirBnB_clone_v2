@@ -46,15 +46,28 @@ class FileStorage:
                 temp[key] = val.to_dict()
             json.dump(temp, f)
 
+    # def reload(self):
+    #     """Loads storage dictionary from file"""
+    #     from models.base_model import BaseModel
+    #     from models.user import User
+    #     from models.place import Place
+    #     from models.state import State
+    #     from models.city import City
+    #     from models.amenity import Amenity
+    #     from models.review import Review
     def reload(self):
-        """Loads storage dictionary from file"""
-        from models.base_model import BaseModel
-        from models.user import User
-        from models.place import Place
-        from models.state import State
-        from models.city import City
-        from models.amenity import Amenity
-        from models.review import Review
+        """ deserializing the JSON file to objects
+        """
+        try:
+            with open(self.__file_path, 'r', encoding="UTF-8") as f:
+                #for key, value in (json.load(f)).items():
+                obj_dict = json.load(f)
+            for key, value in obj_dict.items():
+                class_name, obj_id = key.split('.')
+            self.new(eval(class_name)(**value))  
+        except: FileNotFoundError
+        pass              
+            
 
         classes = {
                     'BaseModel': BaseModel, 'User': User, 'Place': Place,
